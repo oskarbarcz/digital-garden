@@ -1,0 +1,19 @@
+name: integrate
+
+on:
+  pull_request:
+    paths: ["**", "!**.md"]
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Update blog content & redeploy
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.DISPATCH_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/oskarbarcz/yet-another-blog-attempt/dispatches \
+            -d '{"event_type":"deploy-blog","client_payload":{"version":"0.1.0"}}'

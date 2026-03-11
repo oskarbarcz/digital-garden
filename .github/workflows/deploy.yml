@@ -7,6 +7,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-24.04
+    env:
+      BLOG_REPO_URL: oskarbarcz/yet-another-blog-attempt
+      BLOG_DEPLOY_EVENT: deploy-blog
+      BLOG_VERSION: 0.1.0
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -15,5 +19,5 @@ jobs:
           curl -X POST --fail \
             -H "Authorization: Bearer ${{ secrets.DISPATCH_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/oskarbarcz/yet-another-blog-attempt/dispatches \
-            -d '{"event_type":"deploy-blog","client_payload":{"version":"0.1.0"}}'
+            https://api.github.com/repos/${{ env.DISPATCH_TOKEN }}/dispatches \
+            -d '{"event_type":"${{ env.BLOG_DEPLOY_EVENT }}","client_payload":{"version":"${{ env.BLOG_VERSION }}"}}'

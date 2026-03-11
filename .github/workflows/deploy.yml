@@ -19,5 +19,5 @@ jobs:
           curl -X POST --fail \
             -H "Authorization: Bearer ${{ secrets.DISPATCH_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/${{ env.DISPATCH_TOKEN }}/dispatches \
+            https://api.github.com/repos/${{ env.BLOG_REPO_URL }}/dispatches \
             -d '{"event_type":"${{ env.BLOG_DEPLOY_EVENT }}","client_payload":{"version":"${{ env.BLOG_VERSION }}"}}'

@@ -1,15 +1,16 @@
-name: integrate
+name: deploy
 
 on:
-  pull_request
+  push:
+    branches: ["main"]
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-      - name: Update blog content & redeploy
+      - name: Dispatch deploy event
         run: |
           curl -X POST --fail \
             -H "Authorization: Bearer ${{ secrets.DISPATCH_TOKEN }}" \
